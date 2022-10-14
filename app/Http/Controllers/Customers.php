@@ -16,7 +16,6 @@ class Customers extends Controller
     public function index()
     {
         //
-        print(DB::table('customers')->get());
         $customers = DB::table('customers')->get();
         return ['customers'=>$customers];
     }
