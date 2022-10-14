@@ -64,7 +64,7 @@ class Customers extends Controller
         //
         $balance = $request->input('balance');
         DB::update('update customers set balance = ? where id = ?', [$balance, $id]);
-        return to_route('view-records');
+        return ['message'=>'Money Transferred Successfully'];
     }
 
     /**
