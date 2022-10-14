@@ -62,7 +62,7 @@ class Customers extends Controller
     public function update(Request $request, $id)
     {
         //
-        $name = $request->input('balance');
+        $balance = $request->input('balance');
         DB::update('update customers set balance = ? where id = ?', [$balance, $id]);
         return to_route('view-records');
     }
