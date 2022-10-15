@@ -74,7 +74,7 @@ class Customers extends Controller
             $customers = DB::table('customers')->get();
             return ['message'=>'Money Transferred Successfully', 'customers'=>$customers];
         } catch (\Exception $e) {
-            throw new HttpException(500, [$e->getMessage(), 'request'->$request, 'id'->$id]);
+            throw new HttpException(500, ['request'->$request, 'id'->$id]);
         }
     }
 
