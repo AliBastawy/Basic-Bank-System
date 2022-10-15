@@ -68,8 +68,8 @@ class Customers extends Controller
         print($targetCustomer);
         print($balance);
         print($sourceCustomer);
-        DB::update('update customers set balance = ? where id = ?', [$sourceCustomer[0]->balance - $balance, $sourceCustomer[0]);
-        DB::update('update customers set balance = ? where id = ?', [$targetCustomer[0]->balance + $balance, $targetCustomer[0]);
+        DB::update('update customers set balance = ? where id = ?', [$sourceCustomer[0]->balance - $balance, $sourceCustomer[0]];
+        DB::update('update customers set balance = ? where id = ?', [$targetCustomer[0]->balance + $balance, $targetCustomer[0]];
 //         $balance = $request->input('balance');
 //         DB::update('update customers set balance = ? where id = ?', [$balance, $id]);
         $customers = DB::table('customers')->get();
