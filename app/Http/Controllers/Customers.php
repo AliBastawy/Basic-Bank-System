@@ -62,20 +62,16 @@ class Customers extends Controller
     public function update(Request $request, $id)
     {
         //
-        try {
-            $sourceCustomer = DB::select('select * from customers where id = ?', [$id]);
-            $targetCustomer = DB::select('select * from customers where id = ?', [$request->input('target')]);
-            $balance = $request->input('balance');
+        $sourceCustomer = DB::select('select * from customers where id = ?', [$id]);
+        $targetCustomer = DB::select('select * from customers where id = ?', [$request->input('target')]);
+        $balance = $request->input('balance');
 
-            DB::update('update customers set balance = ? where id = ?', [$sourceCustomer.balance - $balance, $sourceCustomer]);
-            DB::update('update customers set balance = ? where id = ?', [$targetCustomer.balance + $balance, $targetCustomer]);
-    //         $balance = $request->input('balance');
-    //         DB::update('update customers set balance = ? where id = ?', [$balance, $id]);
-            $customers = DB::table('customers')->get();
-            return ['message'=>'Money Transferred Successfully', 'customers'=>$customers];
-        } catch (\Exception $e) {
-            throw new HttpException(500, ['request'->$request, 'id'->$id]);
-        }
+        DB::update('update customers set balance = ? where id = ?', [$sourceCustomer->balance - $balance, $sourceCustomer]);
+        DB::update('update customers set balance = ? where id = ?', [$targetCustomer->balance + $balance, $targetCustomer]);
+//         $balance = $request->input('balance');
+//         DB::update('update customers set balance = ? where id = ?', [$balance, $id]);
+        $customers = DB::table('customers')->get();
+        return ['message'=>'Money Transferred Successfully', 'customers'=>$customers];
     }
 
     /**
