@@ -59,11 +59,16 @@ class Customers extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update($source, $target, $balance)
     {
         //
-        $balance = $request->input('balance');
-        DB::update('update customers set balance = ? where id = ?', [$balance, $id]);
+        $sourceCustomer = DB::select('select * from customers where id = ?', [$source]);
+        $targetCustomer = DB::select('select * from customers where id = ?', [$target]);
+
+        DB::update('update customers set balance = ? where id = ?', [$sourceCustomer.balance - $balance, $sourceCustomer]);
+        DB::update('update customers set balance = ? where id = ?', [$targetCustomer.balance + $balance, $targetCustomer]);
+//         $balance = $request->input('balance');
+//         DB::update('update customers set balance = ? where id = ?', [$balance, $id]);
         return ['message'=>'Money Transferred Successfully'];
     }
 
