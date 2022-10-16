@@ -62,6 +62,7 @@ class Customers extends Controller
     public function update(Request $request, $id)
     {
         //
+//         $source = $id;
         $sourceCustomer = DB::select('select * from customers where id = ?', [$id]);
         $targetCustomer = DB::select('select * from customers where id = ?', [$request->input('target')]);
         $balance = $request->input('balance');
@@ -70,10 +71,14 @@ class Customers extends Controller
 //         dd($sourceCustomer[0]->balance);
         DB::update('update customers set balance = ? where id = ?', [$sourceCustomer[0]->balance - (int)$balance, $sourceCustomer[0]->id]);
         DB::update('update customers set balance = ? where id = ?', [$targetCustomer[0]->balance + (int)$balance, $targetCustomer[0]->id]);
-//         $balance = $request->input('balance');
-//         DB::update('update customers set balance = ? where id = ?', [$balance, $id]);
+
+        $data = array('source' => $id, "target" => $targetCustomer[0]->id, "money" => $balance);
+        DB::table('transactions')->insert($data);
+
         $customers = DB::table('customers')->get();
-        return ['message'=>'Money Transferred Successfully', 'customers'=>$customers];
+        $transactions = DB::table('transactions')->get();
+
+        return ['message'=>'Money Transferred Successfully', 'customers'=>$customers, 'transactions'=>$transactions];
     }
 
     /**
