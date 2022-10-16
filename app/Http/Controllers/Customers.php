@@ -17,7 +17,8 @@ class Customers extends Controller
     {
         //
         $customers = DB::table('customers')->get();
-        return ['customers'=>$customers];
+        $transactions = DB::table('transactions')->get();
+        return ['customers'=>$customers, 'transactions'=>$transactions];
     }
 
     /**
